@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Контакт";
+}
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="~/Images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/css/main.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/bootstrap/js/popper.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/js/main.js"></script>
+
+<h2>@ViewBag.Title.</h2>
+
+<address>
+    Эстония<br />
+    Таллинн, Sõpruse Pst. 182  <br />
+    <abbr title="Phone">P:</abbr>
+    8800535535
+</address>
+
+<address>
+    <strong>Тех-Поддержка:</strong>   <a href="mailto:Support@example.com">danil.gritsenko3@gmail.com</a><br />
+</address>
+<div class="mapouter">
+    <div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=S%C3%B5pruse%20182&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div>
+    <style>
+        .mapouter {
+            text-align: right;
+            height: 500px;
+            width: 600px;
+        }
+
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 500px;
+            width: 600px;
+        }
+    </style>
+</div>

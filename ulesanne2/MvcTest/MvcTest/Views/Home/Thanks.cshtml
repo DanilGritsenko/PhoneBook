@@ -1,0 +1,71 @@
+﻿@model MvcTest.Models.Purchase
+
+@{
+    Layout = null;
+}
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="~/Images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/css/main.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/bootstrap/js/popper.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/js/main.js"></script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Спасибо</title>
+</head>
+<body>
+    @{
+        try
+        {
+
+            WebMail.SmtpServer = "smtp.gmail.com";
+            WebMail.SmtpPort = 587;
+            WebMail.EnableSsl = true;
+            WebMail.UserName = "danil.gritsenko3@gmail.com";
+            WebMail.Password = "DANILOO02";
+            WebMail.From = "danil.gritsenko3@gmail.com";
+            WebMail.Send(ViewBag.Email, "Уведомление о покупке книги", "Спасибо за покупку книги " + ViewBag.BookName + "! \n Вы можете скачать книгу по адресу localhost:50185/Files/" + ViewBag.File);
+        }
+        catch (Exception)
+        {
+            @: Сообщение не было отправлено
+            return;
+        }
+    }
+
+    <div>
+        <h1> Спасибо за покупку книги @ViewBag.BookName, @ViewBag.Name!</h1>
+        @if (ViewBag.Klient == true)
+        {
+            @: Спасибо за то, что вы наш клиент!
+        }
+        else
+        {
+            @: Мы рекомендуем стать нашем клиентом для получения спец-скидок!
+        }
+    </div>
+</body>
+</html>

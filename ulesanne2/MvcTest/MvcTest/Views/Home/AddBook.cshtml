@@ -1,0 +1,95 @@
+﻿@model MvcTest.Models.Book
+@{
+    ViewBag.Title = "AddBook";
+}
+
+<!--===============================================================================================-->
+<link rel="icon" type="image/png" href="~/Images/icons/favicon.ico" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="~/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/css/main.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/bootstrap/js/popper.js"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="~/js/main.js"></script>
+
+
+@ViewBag.Success
+@using (Html.BeginForm("AddBook", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+<fieldset>
+    <legend>Books</legend>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Name)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Author)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Author)
+        @Html.ValidationMessageFor(model => model.Author)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Price)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Price)
+        @Html.ValidationMessageFor(model => model.Price)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Image)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Image)
+        @Html.ValidationMessageFor(model => model.Image)
+        @Html.ActionLink("Добавить новую картинку", "UploadFiles")
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.File)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.File)
+        @Html.ValidationMessageFor(model => model.File)
+        @Html.ActionLink("Добавить новый файл", "UploadFiles")
+    </div>
+
+    <p>
+        <input type="submit" value="Create" />
+    </p>
+</fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to Admin", "Admin")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

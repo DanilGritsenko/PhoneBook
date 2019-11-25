@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Телефонная книга Гриценко</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == true)
+                    {
+                        <li>
+                            Добро пожаловать, @HttpContext.Current.User.Identity.Name!
+                            @Html.ActionLink("Выйти", "Logout", "Account")
+
+                        </li>}
+                    <li>@Html.ActionLink("Телефонная книга", "Index", "Home")</li>
+                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
+                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Админ", "Admin", "Home")</li>
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
+                    {
+                        <li>@Html.ActionLink("Логин", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>}
+                    </ul>
+            </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Сделано TARpv17 Danil Gritsenko </p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

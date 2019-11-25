@@ -1,0 +1,210 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/css/main.css">
+    <!--===============================================================================================-->
+
+    <!--===============================================================================================-->
+    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/js/main.js"></script>
+
+    <script type="text/javascript">
+        function usercheck() {
+            if (document.getElementById("user").checked == true) {
+                var nodes = document.getElementById("bookclass").getElementsByTagName('*');
+                var nodes1 = document.getElementById("roleclass").getElementsByTagName('*');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].disabled = true;
+                }
+                for (var i = 0; i < nodes1.length; i++) {
+                    nodes1[i].disabled = true;
+                }
+            }
+            else
+            {
+                var nodes = document.getElementById("bookclass").getElementsByTagName('*');
+                var nodes1 = document.getElementById("roleclass").getElementsByTagName('*');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].disabled = false;
+                }
+                for (var i = 0; i < nodes1.length; i++) {
+                    nodes1[i].disabled = false;
+                }
+            }
+        }
+        function bookcheck() {
+            if (document.getElementById("book").checked == true) {
+                var nodes = document.getElementById("userclass").getElementsByTagName('*');
+                var nodes1 = document.getElementById("roleclass").getElementsByTagName('*');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].disabled = true;
+                }
+                for (var i = 0; i < nodes1.length; i++) {
+                    nodes1[i].disabled = true;
+                }
+            }
+            else {
+                var nodes = document.getElementById("userclass").getElementsByTagName('*');
+                var nodes1 = document.getElementById("roleclass").getElementsByTagName('*');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].disabled = false;
+                }
+                for (var i = 0; i < nodes1.length; i++) {
+                    nodes1[i].disabled = false;
+                }
+            }
+        }
+        function rolecheck() {
+            if (document.getElementById("role").checked == true) {
+                var nodes = document.getElementById("userclass").getElementsByTagName('*');
+                var nodes1 = document.getElementById("bookclass").getElementsByTagName('*');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].disabled = true;
+                }
+                for (var i = 0; i < nodes1.length; i++) {
+                    nodes1[i].disabled = true;
+                }
+            }
+            else {
+                var nodes = document.getElementById("userclass").getElementsByTagName('*');
+                var nodes1 = document.getElementById("bookclass").getElementsByTagName('*');
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].disabled = false;
+                }
+                for (var i = 0; i < nodes1.length; i++) {
+                    nodes1[i].disabled = false;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <div>
+            <div>
+                <h5>Admin Page</h5>
+            </div>
+            <div>
+                @using (Html.BeginForm("Admin", "Home", FormMethod.Post))
+                {
+                    <button type="submit" value="Delete" class="btn btn-sm btn-danger rounded-0" onclick="return confirm('Вы уверены?')"><i class="fa fa-trash-o"></i> Delete</button>
+                    <br /><br />
+                    <div id="bookclass" class="table100 ver6 m-b-110">
+                        <table id="BookTable" style="width:100%;" class="table">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th>Книги</th>
+                                    <th class="column100 column1" data-column="column1">Id</th>
+                                    <th class="column100 column2" data-column="column2">Название</th>
+                                    <th class="column100 column3" data-column="column3">Автор</th>
+                                    <th class="column100 column4" data-column="column4">Цена</th>
+                                    <th class="column100 column5" data-column="column5">Название Файла</th>
+                                    <th class="column100 column6" data-column="column6">Название Обложки</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var b in ViewBag.Books)
+                                {
+                                    <tr class="row100">
+                                        <td><input type="checkbox" id="book" name="BookID" value="@b.Id" class="custom-checkbox chkCheckBoxId" onclick="bookcheck()"/></td>
+                                        <td class="column100 column1" data-column="column1">@b.Id</td>
+                                        <td class="column100 column2" data-column="column2">@b.Name</td>
+                                        <td class="column100 column3" data-column="column3">@b.Author</td>
+                                        <td class="column100 column4" data-column="column4">@b.Price</td>
+                                        <td class="column100 column5" data-column="column5">@b.Image</td>
+                                        <td class="column100 column6" data-column="column6">@b.File</td>
+                                        <td>@Html.ActionLink("Изменить", "EditBook", new { id = @b.Id })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="userclass" class="table100 ver6 m-b-110">
+                        <table id="UserTable" style="width:100%;" class="table">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th>Пользователи</th>
+                                    <th class="column100 column1" data-column="column1">Id</th>
+                                    <th class="column100 column2" data-column="column2">Название</th>
+                                    <th class="column100 column3" data-column="column3">Пароль</th>
+                                    <th class="column100 column4" data-column="column4">Возраст</th>
+                                    <th class="column100 column5" data-column="column5">ID Роли</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var u in ViewBag.Users)
+                                {
+                                    <tr class="row100">
+                                        <td><input type="checkbox" id="user" name="UserID" value="@u.Id" class="custom-checkbox chkCheckBoxId" onclick="usercheck()" /></td>
+                                        <td class="column100 column1" data-column="column1">@u.Id</td>
+                                        <td class="column100 column2" data-column="column2">@u.Email</td>
+                                        <td class="column100 column3" data-column="column3">@u.Password</td>
+                                        <td class="column100 column4" data-column="column4">@u.Age</td>
+                                        <td class="column100 column5" data-column="column5">@u.RoleId</td>
+                                        <td>@Html.ActionLink("Изменить", "EditUser", new { id = @u.Id })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="roleclass" class="table100 ver6 m-b-110">
+                        <table id="RoleTable" style="width:100%;" class="table">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th>Роли</th>
+                                    <th class="column100 column1" data-column="column1">Id</th>
+                                    <th class="column100 column2" data-column="column2">Название</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in ViewBag.Roles)
+                                {
+                                    <tr class="row100">
+                                        <td><input type="checkbox" id="role" name="RoleID" value="@r.Id" class="custom-checkbox chkCheckBoxId" onclick="rolecheck()" /></td>
+                                        <td class="column100 column1" data-column="column1">@r.Id</td>
+                                        <td class="column100 column2" data-column="column2">@r.Name</td>
+                                        <td>@Html.ActionLink("Изменить", "EditRole", new { id = @r.Id })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @Html.ActionLink("Добавить Книгу", "AddBook")
+    <br />
+    @Html.ActionLink("Добавить Файл Книги", "UploadFiles")
+</body>
+</html>
