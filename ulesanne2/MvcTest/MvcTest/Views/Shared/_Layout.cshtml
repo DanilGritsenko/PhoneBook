@@ -12,20 +12,27 @@
                 <ul class="nav navbar-nav">
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == true)
                     {
-                        <li>
+                        <li class="fblack">
                             Добро пожаловать, @HttpContext.Current.User.Identity.Name!
-                            @Html.ActionLink("Выйти", "Logout", "Account")
+                            @if (User.IsInRole("user") || User.IsInRole("admin"))
+                    {
+                            @Html.ActionLink("Группы", "Group", "Home")
+                    }
 
                         </li>}
-                    <li>@Html.ActionLink("Телефонная книга", "Index", "Home")</li>
-                    <li>@Html.ActionLink("О нас", "About", "Home")</li>
-                    <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Админ", "Admin", "Home")</li>
+                    <li class="fblack">@Html.ActionLink("Телефонная книга", "Phone", "Home")</li>
+                    <li class="fblack">@Html.ActionLink("О нас", "About", "Home")</li>
+                    <li class="fblack">@Html.ActionLink("Контакт", "Contact", "Home")</li>
+                    <li class="fblack">@Html.ActionLink("Админ", "Admin", "Home")</li>
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == false)
                     {
-                        <li>@Html.ActionLink("Логин", "Login", "Account")</li>
-                        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>}
-                    </ul>
+                        <li class="fblack">@Html.ActionLink("Логин", "Login", "Account")</li>
+                        <li class="fblack">@Html.ActionLink("Регистрация", "Register", "Account")</li>}
+                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == true)
+                    {
+                    <li class="fblack">@Html.ActionLink("Выйти", "Logout", "Account")</li>
+                    }
+                </ul>
             </div>
     <div class="container body-content">
         @RenderBody()

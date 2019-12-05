@@ -21,5 +21,9 @@ namespace MvcTest.Models
         public string Number { get; set; }
 
         public string Email { get; set; }
+
+        public int GId { get; set; }
+
+        public int UId { get; set; }
     }
 }

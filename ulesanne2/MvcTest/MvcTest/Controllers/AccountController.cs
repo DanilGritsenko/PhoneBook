@@ -32,7 +32,7 @@ namespace MvcTest.Controllers
                     // создаем нового пользователя
                     using (UserContext db = new UserContext())
                     {
-                        db.Users.Add(new User { Email = model.Name, Password = model.Password, Age = model.Age, RoleId = 2 });
+                        db.Users.Add(new User { Email = model.Name, Password = model.Password, RoleId = 3 });
                         db.SaveChanges();
 
                         user = db.Users.Where(u => u.Email == model.Name && u.Password == model.Password).FirstOrDefault();
@@ -41,7 +41,7 @@ namespace MvcTest.Controllers
                     if (user != null)
                     {
                         FormsAuthentication.SetAuthCookie(model.Name, true);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Phone", "Home");
                     }
                 }
                 else
@@ -70,7 +70,7 @@ namespace MvcTest.Controllers
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, true);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Phone", "Home");
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace MvcTest.Controllers
             Session.Abandon();
 
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Phone", "Home");
         }
     }
 }

@@ -12,5 +12,6 @@ namespace MvcTest.Models
             base("PhoneContext")
         { }
         public DbSet<Phone> Phones { get; set; }
+        public DbSet<Group> Groups { get; set; }
     }
 }

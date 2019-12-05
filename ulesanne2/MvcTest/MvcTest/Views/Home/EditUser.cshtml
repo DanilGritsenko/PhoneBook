@@ -59,14 +59,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Age, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RoleId, new { htmlAttributes = new { @class = "form-control" } })
@@ -83,7 +75,7 @@
 }
 
 <div>
-    @Html.ActionLink("Обратно на главную страницу", "Index")
+    @Html.ActionLink("Обратно на админ панель", "Admin")
 </div>
 
 @section Scripts {

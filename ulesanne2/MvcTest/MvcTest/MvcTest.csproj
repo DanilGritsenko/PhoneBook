@@ -146,6 +146,8 @@
     <Compile Include="Models\BookContext.cs" />
     <Compile Include="Models\BookDbInitializer.cs" />
     <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\GroupContext.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\Phone.cs" />
@@ -160,6 +162,10 @@
     <Compile Include="Util\ImageResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\FormsAuth.mdf" />
+    <Content Include="App_Data\FormsAuth_log.ldf">
+      <DependentUpon>FormsAuth.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Phonebook.mdf" />
     <Content Include="App_Data\Phonebook_log.ldf">
       <DependentUpon>Phonebook.mdf</DependentUpon>
@@ -320,6 +326,10 @@
     <Content Include="Views\Home\EditUser.cshtml" />
     <Content Include="Views\Home\EditRole.cshtml" />
     <Content Include="Views\Home\Phone.cshtml" />
+    <Content Include="Views\Home\Group.cshtml" />
+    <Content Include="Views\Home\AddGroup.cshtml" />
+    <Content Include="Views\Home\EditGroup.cshtml" />
+    <Content Include="Views\Home\AddPhone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Book\" />
@@ -355,7 +365,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50185</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:39996/</IISUrl>
+          <IISUrl>http://localhost:1337/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

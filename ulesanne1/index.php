@@ -1,6 +1,7 @@
 ﻿<?php
 $phonebook = simplexml_load_file("phonebook.xml");
 $counter = 0;
+$phone = $phonebook -> phone;
 // name - название раздела xml
 function searchByID($query) {
     global $phonebook;
@@ -73,7 +74,13 @@ function searchByNum($query) {
     </head>
     <body>
       <h1>XML Reading from phonebook</h1>
+	  <h5>
+	  <?php
+		  echo "First entry:".($phone[0] -> name)." ".($phone[0] -> surname);
+	  ?>
+	  </h3>
       <h3>Table</h3>
+	  
             <table class="u-full-width">
                 <tr>
                     <th>ID</th>

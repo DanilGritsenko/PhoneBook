@@ -15,7 +15,7 @@ namespace MvcTest.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
     }
-    public class UserDbInitializer : DropCreateDatabaseAlways<UserContext>
+    public class UserDbInitializer : DropCreateDatabaseIfModelChanges<UserContext>
     {
         protected override void Seed(UserContext db)
         {
@@ -27,7 +27,6 @@ namespace MvcTest.Models
                 Id = 1,
                 Email = "admin",
                 Password = "admin",
-                Age = 25,
                 RoleId = 1
 
             });

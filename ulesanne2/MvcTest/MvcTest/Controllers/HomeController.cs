@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MvcTest.Models;
@@ -33,10 +34,135 @@ namespace MvcTest.Controllers
             return View();
 
         }
+        [Authorize(Roles = "admin, user, guest")]
+        [HttpGet]
         public ActionResult Phone()
         {
             IEnumerable<Phone> phones = pdb.Phones;
+            var CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            var PhoneData = pdb.Phones.Where(p => p.UId == CUser);
+            ViewBag.Phones = PhoneData;
+            ViewBag.CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            
+            return View();
+        }
+        [Authorize(Roles = "admin, user, guest")]
+        [HttpPost]
+        public ActionResult Phone(FormCollection form)
+        {
+            IEnumerable<Phone> phones = pdb.Phones;
+            var CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            string searchName = Convert.ToString(form["searchString"]);
+            var PhoneData = pdb.Phones.Where(p => p.UId == CUser && p.Name.Contains(searchName));
+            if (searchName == "" || searchName == null)
+            {
+                ViewBag.Test = "Not working";
+            }
+            else
+            {
+                ViewBag.Test = "ITS WORKING!!!!!!!!!";
+                ViewBag.Test = searchName;
+            }
+            ViewBag.Phones = PhoneData;
+            ViewBag.CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+
+            return View();
+        }
+        [Authorize(Roles = "admin, user")]
+        [HttpGet]
+        public ActionResult Group()
+        {
+            IEnumerable<Group> groups = pdb.Groups;
+            ViewBag.Groups = groups;
+            IEnumerable<Phone> phones = pdb.Phones;
             ViewBag.Phones = phones;
+            ViewBag.CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            var CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            var GroupData = this.pdb.Groups.Where(g => g.UId == CUser);
+            var PhoneData = pdb.Phones.Where(p => p.UId == CUser);
+            ViewBag.Groupdata = GroupData;
+            ViewBag.Phonedata = PhoneData;
+            return View();
+        }
+
+        [Authorize(Roles = "admin, user")]
+        [HttpPost]
+        public ActionResult Group(FormCollection form)
+        {
+            IEnumerable<Group> groups = pdb.Groups;
+            ViewBag.Groups = groups;
+            IEnumerable<Phone> phones = pdb.Phones;
+            ViewBag.Phones = phones;
+            ViewBag.CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            var CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+            var GroupData = this.pdb.Groups.Where(g => g.UId == CUser);
+            ViewBag.Groupdata = GroupData;
+            string searchName = Convert.ToString(form["searchString"]);
+            var PhoneData = pdb.Phones.Where(p => p.UId == CUser && p.Name.Contains(searchName));
+            if (searchName == "" || searchName == null)
+            {
+                ViewBag.Test = "Not working";
+            }
+            else
+            {
+                ViewBag.Test = "ITS WORKING!!!!!!!!!";
+                ViewBag.Test = searchName;
+            }
+            ViewBag.Phonedata = PhoneData;
+            ViewBag.Phones = PhoneData;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddGroup(Group objgroup)
+        {
+
+            if (ModelState.IsValid)
+            {
+                this.pdb.Groups.Add(objgroup);
+                this.pdb.SaveChanges();
+                if (ViewBag.Id > 0)
+                {
+                    ViewBag.Success = "Добавлено";
+
+                }
+                ModelState.Clear();
+            }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AddGroup()
+        {
+            IEnumerable<Group> group = pdb.Groups;
+            ViewBag.Groups = group;
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public ActionResult AddPhone(Phone objphone)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var CUser = udb.Users.Where(x => x.Email == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().Id;
+                objphone.UId = CUser;
+                this.pdb.Phones.Add(objphone);
+                this.pdb.SaveChanges();
+                if (ViewBag.Id > 0)
+                {
+                    ViewBag.Success = "Добавлено";
+
+                }
+                ModelState.Clear();
+            }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AddPhone()
+        {
+            IEnumerable<Phone> phone = pdb.Phones;
+            ViewBag.Phones = phone;
             return View();
         }
         /*public string Index()
@@ -50,12 +176,12 @@ namespace MvcTest.Controllers
         }*/
 
         // GET: Home 
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Roles = "admin, user, guest")]
         public ActionResult UploadFiles()
         {
             return View();
         }
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Roles = "admin, user, guest")]
         [HttpPost]
         public ActionResult UploadFiles(HttpPostedFileBase[] files)
         {
@@ -87,7 +213,7 @@ namespace MvcTest.Controllers
             }
             return View();
         }
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Roles = "admin, user, guest")]
         [HttpPost]
         public ActionResult AddBook(Book objbook)
         {
@@ -105,7 +231,7 @@ namespace MvcTest.Controllers
             }
             return View();
         }
-        [Authorize(Roles="admin, user")]
+        [Authorize(Roles = "admin, user, guest")]
         [HttpGet]
         public ActionResult AddBook()
         {
@@ -121,6 +247,8 @@ namespace MvcTest.Controllers
             ViewBag.Books = this.db.Books.ToList();
             ViewBag.Users = this.udb.Users.ToList();
             ViewBag.Roles = this.udb.Roles.ToList();
+            ViewBag.Groups = this.pdb.Groups.ToList();
+            ViewBag.Phones = this.pdb.Phones.ToList();
             return View();
         }
 
@@ -149,6 +277,26 @@ namespace MvcTest.Controllers
                     this.udb.SaveChanges();
                 }
             } catch (Exception) { }
+            try
+            {
+                string[] ids3 = formCollection["GroupID"].Split(new char[] { ',' }); foreach (string groupid in ids3)
+                {
+                    var book = this.pdb.Groups.Find(int.Parse(groupid));
+                    this.pdb.Groups.Remove(book);
+                    this.pdb.SaveChanges();
+                }
+            }
+            catch (Exception) { }
+            try
+            {
+                string[] ids4 = formCollection["PhoneID"].Split(new char[] { ',' }); foreach (string phoneid in ids4)
+                {
+                    var book = this.pdb.Phones.Find(int.Parse(phoneid));
+                    this.pdb.Phones.Remove(book);
+                    this.pdb.SaveChanges();
+                }
+            }
+            catch (Exception) { }
             return RedirectToAction("Admin");
         }
 
@@ -216,7 +364,37 @@ namespace MvcTest.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Roles = "admin, user, guest")]
+        public ActionResult EditGroup(int id)
+        {
+            var Groupdata = pdb.Groups.Where(b => b.GId == id).FirstOrDefault();
+            if (Groupdata != null)
+            {
+                TempData["StudentID"] = id;
+                TempData.Keep();
+                return View(Groupdata);
+            }
+            return View();
+        }
+
+        [Authorize(Roles = "admin, user, guest")]
+        [HttpPost]
+        public ActionResult EditGroup(Group objgroup)
+        {
+
+            int StudentId = (int)TempData["StudentId"];
+            var StudentData = this.pdb.Groups.Where(b => b.GId == StudentId).FirstOrDefault();
+            if (StudentData != null)
+            {
+                StudentData.Name = objgroup.Name;
+                StudentData.UId = objgroup.UId;
+                pdb.Entry(StudentData).State = EntityState.Modified;
+                this.pdb.SaveChanges();
+            }
+            return RedirectToAction("Admin");
+        }
+
+        [Authorize(Roles = "admin, user, guest")]
         public ActionResult EditBook(int id)
         {
             var Bookdata = db.Books.Where(b => b.Id == id).FirstOrDefault();
@@ -228,7 +406,7 @@ namespace MvcTest.Controllers
             }
             return View();
         }
-        [Authorize(Roles = "admin, user")]
+        [Authorize(Roles = "admin, user, guest")]
         [HttpPost]
         public ActionResult EditBook(Book objbook)
         {
@@ -271,7 +449,6 @@ namespace MvcTest.Controllers
             {
                 StudentData.Email = objbook.Email;
                 StudentData.Password = objbook.Password;
-                StudentData.Age = objbook.Age;
                 StudentData.RoleId = objbook.RoleId;
                 udb.Entry(StudentData).State = EntityState.Modified;
                 this.udb.SaveChanges();

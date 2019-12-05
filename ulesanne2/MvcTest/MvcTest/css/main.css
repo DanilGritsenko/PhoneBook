@@ -43,6 +43,10 @@ li {
  font-size: 20px;
 }
 
+.black {
+    color: black;
+}
+
 /* ------------------------------------ */
 a {
  color: white;

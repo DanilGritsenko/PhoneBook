@@ -27,6 +27,13 @@
     <h3>@DateTime.Now.ToShortTimeString()</h3>
 </head>
 <body>
+    @using (Html.BeginForm("Phone", "Home", FormMethod.Post))
+    {
+        <p>
+            Name: <input type="text" name="searchString" style="color:black"><br />
+            <input type="submit" value="Search" />
+        </p>
+    }
     <div class="table100 ver6 m-b-110">
         <table data-vertable="ver6">
             <tr class="row100 head">
@@ -50,7 +57,7 @@
                     <td class="column100 column4" data-column="column4"><p>@b.Number</p></td>
                     <td class="column100 column5" data-column="column5"><p>@b.Email</p></td>
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated == true)
-                    {}
+                    { }
                 </tr>
             }
         </table>

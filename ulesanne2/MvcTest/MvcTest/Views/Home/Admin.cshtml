@@ -117,36 +117,38 @@
                 {
                     <button type="submit" value="Delete" class="btn btn-sm btn-danger rounded-0" onclick="return confirm('Вы уверены?')"><i class="fa fa-trash-o"></i> Delete</button>
                     <br /><br />
-                    <div id="bookclass" class="table100 ver6 m-b-110">
-                        <table id="BookTable" style="width:100%;" class="table">
-                            <thead>
-                                <tr class="row100 head">
-                                    <th>Книги</th>
-                                    <th class="column100 column1" data-column="column1">Id</th>
-                                    <th class="column100 column2" data-column="column2">Название</th>
-                                    <th class="column100 column3" data-column="column3">Автор</th>
-                                    <th class="column100 column4" data-column="column4">Цена</th>
-                                    <th class="column100 column5" data-column="column5">Название Файла</th>
-                                    <th class="column100 column6" data-column="column6">Название Обложки</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var b in ViewBag.Books)
-                                {
-                                    <tr class="row100">
-                                        <td><input type="checkbox" id="book" name="BookID" value="@b.Id" class="custom-checkbox chkCheckBoxId" onclick="bookcheck()"/></td>
-                                        <td class="column100 column1" data-column="column1">@b.Id</td>
-                                        <td class="column100 column2" data-column="column2">@b.Name</td>
-                                        <td class="column100 column3" data-column="column3">@b.Author</td>
-                                        <td class="column100 column4" data-column="column4">@b.Price</td>
-                                        <td class="column100 column5" data-column="column5">@b.Image</td>
-                                        <td class="column100 column6" data-column="column6">@b.File</td>
-                                        <td>@Html.ActionLink("Изменить", "EditBook", new { id = @b.Id })</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+                    <!--
+        <div id="bookclass" class="table100 ver6 m-b-110">
+            <table id="BookTable" style="width:100%;" class="table">
+                <thead>
+                    <tr class="row100 head">
+                        <th>Книги</th>
+                        <th class="column100 column1" data-column="column1">Id</th>
+                        <th class="column100 column2" data-column="column2">Название</th>
+                        <th class="column100 column3" data-column="column3">Автор</th>
+                        <th class="column100 column4" data-column="column4">Цена</th>
+                        <th class="column100 column5" data-column="column5">Название Файла</th>
+                        <th class="column100 column6" data-column="column6">Название Обложки</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in ViewBag.Books)
+                    {
+                        <tr class="row100">
+                            <td><input type="checkbox" id="book" name="BookID" value="@b.Id" class="custom-checkbox chkCheckBoxId" onclick="bookcheck()" /></td>
+                            <td class="column100 column1" data-column="column1">@b.Id</td>
+                            <td class="column100 column2" data-column="column2">@b.Name</td>
+                            <td class="column100 column3" data-column="column3">@b.Author</td>
+                            <td class="column100 column4" data-column="column4">@b.Price</td>
+                            <td class="column100 column5" data-column="column5">@b.Image</td>
+                            <td class="column100 column6" data-column="column6">@b.File</td>
+                            <td>@Html.ActionLink("Изменить", "EditBook", new { id = @b.Id })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+            -->
 
                     <div id="userclass" class="table100 ver6 m-b-110">
                         <table id="UserTable" style="width:100%;" class="table">
@@ -156,8 +158,7 @@
                                     <th class="column100 column1" data-column="column1">Id</th>
                                     <th class="column100 column2" data-column="column2">Название</th>
                                     <th class="column100 column3" data-column="column3">Пароль</th>
-                                    <th class="column100 column4" data-column="column4">Возраст</th>
-                                    <th class="column100 column5" data-column="column5">ID Роли</th>
+                                    <th class="column100 column4" data-column="column4">ID Роли</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -168,8 +169,7 @@
                                         <td class="column100 column1" data-column="column1">@u.Id</td>
                                         <td class="column100 column2" data-column="column2">@u.Email</td>
                                         <td class="column100 column3" data-column="column3">@u.Password</td>
-                                        <td class="column100 column4" data-column="column4">@u.Age</td>
-                                        <td class="column100 column5" data-column="column5">@u.RoleId</td>
+                                        <td class="column100 column4" data-column="column4">@u.RoleId</td>
                                         <td>@Html.ActionLink("Изменить", "EditUser", new { id = @u.Id })</td>
                                     </tr>
                                 }
@@ -199,12 +199,70 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div id="roleclass" class="table100 ver6 m-b-110">
+                        <table id="RoleTable" style="width:100%;" class="table">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th>Группы</th>
+                                    <th class="column100 column1" data-column="column1">Id</th>
+                                    <th class="column100 column2" data-column="column2">Название</th>
+                                    <th class="column100 column3" data-column="column3">Id Пользователя</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in ViewBag.Groups)
+                                {
+                                    <tr class="row100">
+                                        <td><input type="checkbox" id="group" name="GroupID" value="@r.GId" class="custom-checkbox chkCheckBoxId" onclick="rolecheck()" /></td>
+                                        <td class="column100 column1" data-column="column1">@r.GId</td>
+                                        <td class="column100 column2" data-column="column2">@r.Name</td>
+                                        <td class="column100 column3" data-column="column3">@r.UId</td>
+                                        <td>@Html.ActionLink("Изменить", "EditGroup", new { id = @r.GId })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="roleclass" class="table100 ver6 m-b-110">
+                        <table id="RoleTable" style="width:100%;" class="table">
+                            <thead>
+                                <tr class="row100 head">
+                                    <th>Телефоны</th>
+                                    <th class="column100 column1" data-column="column1">Id</th>
+                                    <th class="column100 column2" data-column="column2">Название</th>
+                                    <th class="column100 column3" data-column="column3">Номер</th>
+                                    <th class="column100 column4" data-column="column4">Э-Майл</th>
+                                    <th class="column100 column5" data-column="column5">ИД Группы</th>
+                                    <th class="column100 column6" data-column="column6">ИД Пользователя</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in ViewBag.Phones)
+                                {
+                                <tr class="row100">
+                                    <td><input type="checkbox" id="phone" name="PhoneID" value="@r.Id" class="custom-checkbox chkCheckBoxId" onclick="rolecheck()" /></td>
+                                    <td class="column100 column1" data-column="column1">@r.Id</td>
+                                    <td class="column100 column2" data-column="column2">@r.Name</td>
+                                    <td class="column100 column3" data-column="column3">@r.Number</td>
+                                    <td class="column100 column4" data-column="column4">@r.Email</td>
+                                    <td class="column100 column5" data-column="column5">@r.GId</td>
+                                    <td class="column100 column6" data-column="column6">@r.UId</td>
+                                    <td>@Html.ActionLink("Изменить", "EditPhone", new { id = @r.GId })</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 }
             </div>
         </div>
     </div>
-    @Html.ActionLink("Добавить Книгу", "AddBook")
+    @Html.ActionLink("Добавить Группу", "AddGroup")
     <br />
-    @Html.ActionLink("Добавить Файл Книги", "UploadFiles")
+    @Html.ActionLink("Добавить Телефон", "AddPhone")
+    <br />
+
 </body>
 </html>
